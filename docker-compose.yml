@@ -1,0 +1,23 @@
+services:
+  qdrant:
+    image: qdrant/qdrant:v1.20.0
+    ports:
+      - "6333:6333"
+    volumes:
+      - ./qdrant_storage:/qdrant/storage
+
+  api:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    ports:
+      - "8000:8000"
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      CHANTIER_QDRANT_URL: http://qdrant:6333
+    volumes:
+      - ./models:/app/models:ro   # remplacer le modèle sans reconstruire l'image
+    depends_on:
+      - qdrant

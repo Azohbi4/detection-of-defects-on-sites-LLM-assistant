@@ -1,0 +1,28 @@
+# Données et artefacts lourds (non versionnés)
+data/
+!data/README.md
+models/*
+!models/.gitkeep
+mlruns/
+mlartifacts/
+reports/
+qdrant_storage/
+
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+pytest_tmp/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# Secrets
+.env
+
+# IDE / OS
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store

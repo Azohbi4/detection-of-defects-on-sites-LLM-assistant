@@ -1,0 +1,10 @@
+# Documents indexés dans la base RAG (voir README.md de ce dossier).
+- file: fhwa_birm_concrete_defects.md
+  title: "FHWA Bridge Inspector's Reference Manual (BIRM) — Concrete Distress & Defects"
+  url: "https://www.fhwa.dot.gov/bridge/nbis.cfm"
+  licence: "domaine public (publication du gouvernement fédéral américain, 17 U.S.C. § 105)"
+
+- file: cerema_pathologies_beton_iqoa.md
+  title: "Cerema / IQOA — Fiches Pathologies et Dégradations des Ouvrages d'Art en Béton"
+  url: "https://www.cerema.fr/fr/activites/infrastructures-transport/ouvrages-art"
+  licence: "Licence Ouverte v2.0 (Etalab) / Documentation technique de référence Cerema"
