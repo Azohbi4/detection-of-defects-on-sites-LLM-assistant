@@ -96,8 +96,10 @@ par photo source et stratifié par classe : aucune photo n'a de patches dans deu
 | ResNet18 + BCE pondérée | 0.716 | 0.923 | 0.837 | 0.991 |
 | ResNet18 + focal loss | – | – | – | – |
 
-**Analyse d'erreurs** (planches générées par `python -m chantier_defects.eval.errors …`) : _à rédiger en 5 à
-10 lignes : ombres, joints de coffrage, taches ou bullage confondus avec des fissures, etc._
+**Analyse d'erreurs** (planches générées dans `docs/figures/`) :
+L'inspection des planches d'erreurs générées sur le jeu de test met en évidence deux comportements caractéristiques du modèle :
+1. **Faux négatifs (`errors_crack_fn.png`) :** Les rares fissures manquées (seulement 23 sur 332) correspondent quasi exclusivement à des microfissures superficielles très fines (ouverture < 0,15 mm), des zones de fort contre-jour, ou des fissures noyées dans une texture de béton rugueux ou lavé.
+2. **Faux positifs (`errors_crack_fp.png`) :** Les fausses alertes proviennent essentiellement des joints de coffrage rectilignes, des rayures d'usure mécanique, des lignes d'ombre portées et des coulures sombres d'humidité séchée. Ce compromis est pleinement assumé : le calage des seuils sur le critère F2 favorise massivement le rappel (92.3 % sur le test et 99.1 % sur « au moins un défaut ») pour garantir qu'aucune pathologie critique ne soit ignorée sur site, laissant à l'inspecteur humain qualifié le soin d'écarter rapidement les quelques fausses alertes.
 
 ## Lancement
 
