@@ -1,8 +1,9 @@
 # Données et artefacts lourds (non versionnés)
-data/
-!data/README.md
-models/*
-!models/.gitkeep
+/data/
+!/data/README.md
+/models/*.pt
+/models/*.joblib
+!/models/.gitkeep
 mlruns/
 mlartifacts/
 mlflow.db

@@ -1,0 +1,22 @@
+# Fichiers ignorés lors du déploiement gcloud run deploy / gcloud builds
+.git/
+.github/
+.venv/
+data/
+!data/README.md
+mlruns/
+mlartifacts/
+mlflow.db
+reports/
+qdrant_storage/
+tests/
+notebooks/
+docs/
+pytest_tmp/
+.pytest_cache/
+.ruff_cache/
+.env
+
+# Toujours inclure le code source
+!src/
+!src/**
