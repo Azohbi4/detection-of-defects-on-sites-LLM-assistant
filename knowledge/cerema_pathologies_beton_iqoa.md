@@ -1,8 +1,12 @@
 # Cerema / IQOA — Fiches Pathologies et Dégradations des Ouvrages d'Art en Béton
 
-Source: Cerema (Centre d'études et d'expertise sur les risques, l'environnement, la mobilité et l'aménagement) / Ministère chargé des transports.
-Document: Méthodologie IQOA (Inspection et Qualité des Ouvrages d'Art) & Fascicules d'identification des pathologies des bétons de génie civil.
-Licence: Licence Ouverte v2.0 (Etalab) — Documentation technique publique de l'administration française.
+Source d'inspiration : Cerema (Centre d'études et d'expertise sur les risques, l'environnement, la mobilité et l'aménagement) / Ministère chargé des transports.
+Documents de référence à consulter : Méthodologie IQOA (Inspection et Qualité des Ouvrages d'Art) & Fascicules d'identification des pathologies des bétons de génie civil.
+Licence : à vérifier pour chaque publication Cerema avant reprise d'un extrait officiel.
+
+> **Statut : synthèse rédigée, non vérifiée.** Ce texte est une reformulation thématique, pas un extrait
+> du document cité. Avant tout usage hors démonstration, vérifier chaque valeur et préconisation dans le
+> document original, ou remplacer ce fichier par l'extrait officiel (voir knowledge/README.md).
 
 ## 1. Fissuration du béton armé (Cracks)
 

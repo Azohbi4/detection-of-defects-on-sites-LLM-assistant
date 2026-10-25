@@ -1,10 +1,12 @@
 # Documents indexés dans la base RAG (voir README.md de ce dossier).
+# Les deux fiches ci-dessous sont des synthèses rédigées à partir des thèmes de ces guides, pas des extraits :
+# leurs titres le disent, pour que les rapports ne les présentent pas comme des citations officielles.
 - file: fhwa_birm_concrete_defects.md
-  title: "FHWA Bridge Inspector's Reference Manual (BIRM) — Concrete Distress & Defects"
+  title: "Synthèse (non vérifiée) d'après le FHWA Bridge Inspector's Reference Manual — défauts du béton"
   url: "https://www.fhwa.dot.gov/bridge/nbis.cfm"
-  licence: "domaine public (publication du gouvernement fédéral américain, 17 U.S.C. § 105)"
+  licence: "texte de synthèse du projet ; document original en principe dans le domaine public (17 U.S.C. § 105), à confirmer"
 
 - file: cerema_pathologies_beton_iqoa.md
-  title: "Cerema / IQOA — Fiches Pathologies et Dégradations des Ouvrages d'Art en Béton"
+  title: "Synthèse (non vérifiée) d'après les guides Cerema / IQOA — pathologies des ouvrages d'art en béton"
   url: "https://www.cerema.fr/fr/activites/infrastructures-transport/ouvrages-art"
-  licence: "Licence Ouverte v2.0 (Etalab) / Documentation technique de référence Cerema"
+  licence: "texte de synthèse du projet ; conditions de réutilisation des publications Cerema à vérifier"
