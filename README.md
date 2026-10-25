@@ -87,8 +87,8 @@ par photo source et stratifié par classe : aucune photo n'a de patches dans deu
 
 ## Résultats
 
-> À compléter après entraînement : `python -m chantier_defects.eval.compare reports/baseline reports/<run>`
-> génère le tableau ci-dessous à partir des fichiers `metrics_test.json`.
+Jeu de test : 1 016 patches CODEBRIM (196 photos sources jamais vues à l'entraînement). Tableau généré par
+`python -m chantier_defects.eval.compare reports/baseline reports/<run>` à partir des fichiers `metrics_test.json`.
 
 | Modèle | F1 macro | Rappel macro | PR-AUC macro | Rappel « au moins un défaut » |
 |---|---|---|---|---|
@@ -96,10 +96,28 @@ par photo source et stratifié par classe : aucune photo n'a de patches dans deu
 | ResNet18 + BCE pondérée | 0.716 | 0.923 | 0.837 | 0.991 |
 | ResNet18 + focal loss | 0.732 | 0.895 | 0.841 | 0.994 |
 
-**Analyse d'erreurs** (planches générées dans `docs/figures/`) :
-L'inspection des planches d'erreurs générées sur le jeu de test met en évidence deux comportements caractéristiques du modèle :
-1. **Faux négatifs (`errors_crack_fn.png`) :** Les rares fissures manquées (seulement 23 sur 332) correspondent quasi exclusivement à des microfissures superficielles très fines (ouverture < 0,15 mm), des zones de fort contre-jour, ou des fissures noyées dans une texture de béton rugueux ou lavé.
-2. **Faux positifs (`errors_crack_fp.png`) :** Les fausses alertes proviennent essentiellement des joints de coffrage rectilignes, des rayures d'usure mécanique, des lignes d'ombre portées et des coulures sombres d'humidité séchée. Ce compromis est pleinement assumé : le calage des seuils sur le critère F2 favorise massivement le rappel (92.3 % sur le test et 99.1 % sur « au moins un défaut ») pour garantir qu'aucune pathologie critique ne soit ignorée sur site, laissant à l'inspecteur humain qualifié le soin d'écarter rapidement les quelques fausses alertes.
+**Modèle déployé** : ResNet18 + BCE pondérée (`models/model.pt`). Il a le meilleur rappel macro, critère
+prioritaire ici ; la focal loss donne un F1 macro un peu meilleur mais rate davantage de défauts
+(rappel fissure 0.961 contre 0.931, mais rappel efflorescence 0.717 contre 0.828).
+
+**Analyse d'erreurs, classe « fissure »** (modèle déployé, planches dans `docs/figures/`, générées par
+`chantier_defects.eval.errors`) :
+
+1. **Faux négatifs** (`errors_crack_fn.png`, 23 fissures manquées sur 332) : 17 des 23 patches portent aussi
+   une autre étiquette (13 des traces de corrosion, 8 de l'efflorescence, 5 un éclatement). Visuellement,
+   la fissure y est souvent secondaire : coulure de rouille, armature ou épaufrure qui domine le patch, ou
+   fissure fine et peu contrastée sur un béton taché. Le modèle reconnaît alors le défaut dominant et
+   « oublie » la fissure. Quelques patches très étroits (quelques dizaines de pixels de large) sont
+   déformés par le redimensionnement en 224×224.
+2. **Faux positifs** (`errors_crack_fp.png`, 182 fausses alertes) : 136 sont des patches d'autres défauts
+   (éclatement, corrosion…), dont les bords de cavité et les arêtes d'épaufrure ressemblent à des fissures ;
+   43 viennent d'images de fond. Parmi les alertes les plus confiantes, plusieurs patches montrent ce qui
+   ressemble à une vraie fissure, ce qui suggère du **bruit d'étiquetage** dans CODEBRIM. On trouve aussi
+   de la peinture écaillée et des tags.
+
+Ce compromis est voulu : les seuils calés sur le F2 favorisent le rappel (92.3 % de rappel macro, 99.1 %
+sur « au moins un défaut », soit 6 patches défectueux non signalés sur 676). Cela ne garantit pas
+l'absence d'oubli sur site, d'où la validation humaine obligatoire.
 
 ## Lancement
 
@@ -120,7 +138,7 @@ copy .env.example .env            # puis renseigner ANTHROPIC_API_KEY
 python -m chantier_defects.data.index codebrim data/raw/CODEBRIM_classification_dataset data/processed/index.csv
 python -m chantier_defects.data.split data/processed/index.csv data/processed/splits.csv --seed 42
 python -m chantier_defects.models.baseline data/processed/splits.csv --out models/baseline.joblib
-python -m chantier_defects.models.train data/processed/splits.csv --arch resnet18 --loss weighted
+python -m chantier_defects.models.train data/processed/splits.csv --arch resnet18 --loss weighted   # -> models/model.pt (déployé)
 python -m chantier_defects.models.train data/processed/splits.csv --arch resnet18 --loss focal --out models/model_focal.pt
 python -m chantier_defects.eval.compare reports/baseline reports/resnet18-weighted reports/resnet18-focal
 python -m chantier_defects.eval.errors reports/resnet18-weighted/predictions_test.csv crack --kind fn
@@ -145,6 +163,7 @@ déterministe (`generated_by: "template"`).
 
 ```bash
 docker compose up --build          # API (port 8000) + Qdrant (port 6333)
+python -m chantier_defects.llm.rag ingest knowledge/   # indexe la base dans le Qdrant du compose (CHANTIER_QDRANT_URL)
 ```
 
 ### 5. Tests
@@ -172,6 +191,8 @@ secrets gérés dans Google Secret Manager, CI/CD GitHub Actions.
 - La classification par tuiles localise à la résolution d'une tuile (256 px), sans contour précis du
   défaut ni mesure dimensionnelle.
 - La qualité des recommandations dépend directement des documents indexés dans la base RAG.
+  Les deux fiches actuelles de `knowledge/` sont des **synthèses non vérifiées**, à remplacer par des
+  extraits officiels (voir [knowledge/README.md](knowledge/README.md)).
 
 ## Mentions
 
