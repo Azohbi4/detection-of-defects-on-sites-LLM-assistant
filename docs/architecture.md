@@ -1,7 +1,9 @@
 # Architecture
 
-> Schéma de référence en Mermaid, rendu directement par GitHub. Pour la version draw.io demandée en
-> livrable, reproduire ce schéma et exporter `docs/architecture.drawio.png`.
+> Schémas Mermaid ci-dessous, rendus directement par GitHub. Version image du livrable :
+> `docs/architecture.drawio.png`, générée par `python docs/make_architecture.py`.
+
+![Architecture](architecture.drawio.png)
 
 ## Vue logique
 
