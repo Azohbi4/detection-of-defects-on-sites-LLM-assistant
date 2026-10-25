@@ -5,6 +5,7 @@ models/*
 !models/.gitkeep
 mlruns/
 mlartifacts/
+mlflow.db
 reports/
 qdrant_storage/
 

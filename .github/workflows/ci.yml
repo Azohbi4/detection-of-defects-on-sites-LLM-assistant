@@ -29,27 +29,32 @@ jobs:
 
   build-and-deploy:
     needs: test
-    if: github.ref == 'refs/heads/main' && vars.ACR_NAME != ''
+    if: github.ref == 'refs/heads/main' && vars.GCP_PROJECT_ID != ''
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: azure/login@v2
+      - name: Authentification Google Cloud (WIF)
+        uses: google-github-actions/auth@v2
         with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+      - name: Configuration gcloud
+        uses: google-github-actions/setup-gcloud@v2
+      - name: Configuration Docker pour Artifact Registry
+        run: gcloud auth configure-docker ${{ vars.GCP_REGION }}-docker.pkg.dev
       - name: Récupération du modèle
-        env:
-          MODEL_URL: ${{ secrets.MODEL_URL }}
-        run: curl --fail --silent --show-error -o models/model.pt "$MODEL_URL"
-      - name: Build et push vers ACR
+        if: secrets.MODEL_URL != ''
+        run: curl --fail --silent --show-error -o models/model.pt "${{ secrets.MODEL_URL }}"
+      - name: Build et push vers Google Artifact Registry
         run: |
-          az acr login --name ${{ vars.ACR_NAME }}
-          IMAGE=${{ vars.ACR_NAME }}.azurecr.io/chantier-api:${{ github.sha }}
-          docker build -f docker/Dockerfile -t $IMAGE .
-          docker push $IMAGE
+          IMAGE="${{ vars.GCP_REGION }}-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.GCP_REPO }}/api:${{ github.sha }}"
+          docker build -f docker/Dockerfile -t "$IMAGE" .
+          docker push "$IMAGE"
           echo "IMAGE=$IMAGE" >> "$GITHUB_ENV"
-      - name: Déploiement Container Apps
-        if: vars.CONTAINER_APP != ''
-        run: |
-          az containerapp update -g ${{ vars.RESOURCE_GROUP }} -n ${{ vars.CONTAINER_APP }} --image $IMAGE
+      - name: Déploiement sur Google Cloud Run
+        if: vars.GCP_SERVICE != ''
+        uses: google-github-actions/deploy-cloudrun@v2
+        with:
+          service: ${{ vars.GCP_SERVICE }}
+          region: ${{ vars.GCP_REGION }}
+          image: ${{ env.IMAGE }}

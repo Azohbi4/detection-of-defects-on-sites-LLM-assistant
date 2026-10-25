@@ -92,7 +92,7 @@ par photo source et stratifié par classe : aucune photo n'a de patches dans deu
 
 | Modèle | F1 macro | Rappel macro | PR-AUC macro | Rappel « au moins un défaut » |
 |---|---|---|---|---|
-| Baseline RF (features classiques) | – | – | – | – |
+| Baseline RF (features classiques) | 0.633 | 0.885 | 0.711 | 0.996 |
 | ResNet18 + BCE pondérée | – | – | – | – |
 | ResNet18 + focal loss | – | – | – | – |
 
@@ -154,10 +154,10 @@ pytest
 Les tests utilisent des images synthétiques et des doublures du modèle, du LLM et de la base
 documentaire. Ils ne demandent ni données, ni clé API, ni réseau.
 
-### Déploiement Azure
+### Déploiement Google Cloud Platform (GCP)
 
-Voir [docs/deploy_azure.md](docs/deploy_azure.md) : Azure Container Registry + Azure Container Apps,
-secrets stockés hors du dépôt, CI/CD GitHub Actions.
+Voir [docs/deploy_gcp.md](docs/deploy_gcp.md) : Google Artifact Registry + Google Cloud Run (serverless),
+secrets gérés dans Google Secret Manager, CI/CD GitHub Actions.
 
 ## Limites
 

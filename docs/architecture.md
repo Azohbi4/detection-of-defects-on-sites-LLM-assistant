@@ -24,18 +24,18 @@ flowchart TB
     UI --> AN & RP
     RET --> QD[(Qdrant)]
     WR --> CL[API Claude]
-    AN & RP -.-> MON -.-> LOGS[stdout JSON<br/>Log Analytics]
+    AN & RP -.-> MON -.-> LOGS[stdout JSON<br/>Cloud Logging]
 ```
 
-## Vue déploiement (Azure)
+## Vue déploiement (Google Cloud Platform - GCP)
 
 ```mermaid
 flowchart LR
-    GH[GitHub Actions<br/>tests + build] -->|push image| ACR[Azure Container Registry]
-    ACR --> ACA[Azure Container Apps<br/>API]
-    ACA --> QDA[Container App Qdrant<br/>volume Azure Files]
-    KV[Secrets Container Apps<br/>ou Key Vault] -.->|ANTHROPIC_API_KEY| ACA
-    ACA -->|logs| LA[Log Analytics<br/>alerte drift_alert]
+    GH[GitHub Actions<br/>tests + build] -->|push image| AR[GCP Artifact Registry]
+    AR --> CR[Google Cloud Run<br/>API FastAPI]
+    SM[Google Secret Manager] -.->|ANTHROPIC_API_KEY| CR
+    CR --> QD[(Qdrant<br/>vector store)]
+    CR -->|logs JSON| CL[Cloud Logging<br/>alerte drift_alert]
 ```
 
 ## Organisation du code

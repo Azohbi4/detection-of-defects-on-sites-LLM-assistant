@@ -1,7 +1,7 @@
 """Monitoring léger : latence, distribution des scores, alerte de dérive sur la confiance moyenne.
 
-Les événements sont écrits en JSON sur la sortie standard : Azure Container Apps les envoie dans
-Log Analytics, où une règle d'alerte peut se déclencher sur `"event": "drift_alert"`.
+Les événements sont écrits en JSON sur la sortie standard : Google Cloud Run les envoie dans
+Cloud Logging, où une métrique ou une alerte peut se déclencher sur `"event": "drift_alert"`.
 """
 
 import json
