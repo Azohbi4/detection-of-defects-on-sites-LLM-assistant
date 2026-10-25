@@ -94,7 +94,7 @@ par photo source et stratifié par classe : aucune photo n'a de patches dans deu
 |---|---|---|---|---|
 | Baseline RF (features classiques) | 0.633 | 0.885 | 0.711 | 0.996 |
 | ResNet18 + BCE pondérée | 0.716 | 0.923 | 0.837 | 0.991 |
-| ResNet18 + focal loss | – | – | – | – |
+| ResNet18 + focal loss | 0.732 | 0.895 | 0.841 | 0.994 |
 
 **Analyse d'erreurs** (planches générées dans `docs/figures/`) :
 L'inspection des planches d'erreurs générées sur le jeu de test met en évidence deux comportements caractéristiques du modèle :

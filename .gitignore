@@ -4,10 +4,11 @@
 /models/*.pt
 /models/*.joblib
 !/models/.gitkeep
+!/models/model.pt
 mlruns/
 mlartifacts/
 mlflow.db
-reports/
+# reports/ (conservé dans git pour traçabilité des métriques)
 qdrant_storage/
 
 # Python
