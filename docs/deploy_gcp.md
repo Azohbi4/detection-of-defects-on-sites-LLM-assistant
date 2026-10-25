@@ -32,14 +32,16 @@ gcloud artifacts repositories create $REPO \
 
 ## 2. Construction de l'image Docker
 
-Le modèle entraîné (`models/model.pt`) est intégré à l'image et chargé au démarrage.
+Le modèle entraîné (`models/model.pt`) est intégré à l'image et chargé au démarrage. La base documentaire
+(`knowledge/`) est indexée pendant la construction dans un Qdrant embarqué (`/app/qdrant_storage`) : les
+rapports produits sur Cloud Run citent donc leurs sources sans serveur Qdrant séparé.
 
 Construction et push direct dans le cloud avec Cloud Build :
 
 ```bash
 IMAGE="$REGION-docker.pkg.dev/$PROJECT_ID/$REPO/api:v1"
 
-gcloud builds submit --tag $IMAGE -f docker/Dockerfile .
+gcloud builds submit --tag $IMAGE .     # utilise le Dockerfile à la racine
 ```
 
 ## 3. Gestion des Secrets (Secret Manager)
@@ -71,7 +73,7 @@ gcloud run deploy $SERVICE \
   --min-instances 0 \
   --max-instances 4 \
   --set-secrets ANTHROPIC_API_KEY=anthropic-api-key:latest \
-  --set-env-vars CHANTIER_QDRANT_PATH=qdrant_storage
+  --set-env-vars CHANTIER_QDRANT_PATH=/app/qdrant_storage
 
 # Récupération de l'URL publique HTTPS
 gcloud run services describe $SERVICE --region $REGION --format="value(status.url)"
@@ -86,10 +88,11 @@ Le workflow [`.github/workflows/ci.yml`](../.github/workflows/ci.yml) automatise
 - À chaque push sur `main` : authentification sans clé longue durée via **Workload Identity Federation (WIF)**, build de l'image et mise à jour transparente du service Cloud Run.
 
 Variables requises côté GitHub (`Settings` > `Secrets and variables` > `Actions`) :
-- `GCP_PROJECT_ID` : identifiant du projet GCP
-- `GCP_REGION` : région choisie (ex. `europe-west9`)
-- `GCP_WORKLOAD_IDENTITY_PROVIDER` : provider WIF
-- `GCP_SERVICE_ACCOUNT` : compte de service avec les rôles `roles/run.admin` et `roles/artifactregistry.writer`.
+- Variables : `GCP_PROJECT_ID` (identifiant du projet), `GCP_REGION` (ex. `europe-west9`), `GCP_REPO`
+  (dépôt Artifact Registry) et `GCP_SERVICE` (service Cloud Run ; sans elle, l'image est poussée sans déploiement).
+- Secrets : `GCP_WORKLOAD_IDENTITY_PROVIDER` (provider WIF), `GCP_SERVICE_ACCOUNT` (compte de service avec les
+  rôles `roles/run.admin` et `roles/artifactregistry.writer`) et, si `models/model.pt` n'est pas versionné,
+  `MODEL_URL` (URL de téléchargement du modèle).
 
 ## 6. Monitoring & Dérive (Cloud Logging & Cloud Monitoring)
 

@@ -6,6 +6,7 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     PIP_NO_CACHE_DIR=1 \
     PIP_DISABLE_PIP_VERSION_CHECK=1 \
     HF_HOME=/app/.cache/huggingface \
+    FASTEMBED_CACHE_PATH=/app/.cache/fastembed \
     PORT=8000
 
 WORKDIR /app
@@ -20,11 +21,15 @@ RUN pip install ".[api,llm]"
 COPY models ./models
 COPY knowledge ./knowledge
 
-RUN useradd --create-home --uid 1000 app && mkdir -p /app/.cache && chown -R app /app
-USER app
-
 ENV CHANTIER_MODEL_PATH=/app/models/model.pt \
     CHANTIER_QDRANT_PATH=/app/qdrant_storage
+
+# Base RAG indexée dans l'image (Qdrant embarqué) : le modèle d'embedding est téléchargé une fois ici,
+# puis réutilisé au démarrage sans accès réseau. CHANTIER_QDRANT_URL, s'il est défini, reste prioritaire.
+RUN python -m chantier_defects.llm.rag ingest knowledge/
+
+RUN useradd --create-home --uid 1000 app && chown -R app /app
+USER app
 
 EXPOSE 8000
 

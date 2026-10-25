@@ -7,7 +7,7 @@ on:
 
 permissions:
   contents: read
-  id-token: write   # connexion OIDC à Azure, sans secret longue durée
+  id-token: write   # connexion OIDC à Google Cloud (Workload Identity Federation), sans clé longue durée
 
 jobs:
   test:
@@ -31,6 +31,9 @@ jobs:
     needs: test
     if: github.ref == 'refs/heads/main' && vars.GCP_PROJECT_ID != ''
     runs-on: ubuntu-latest
+    env:
+      # Les secrets ne sont pas utilisables directement dans un `if:` : on passe par une variable d'environnement.
+      MODEL_URL: ${{ secrets.MODEL_URL }}
     steps:
       - uses: actions/checkout@v4
       - name: Authentification Google Cloud (WIF)
@@ -43,12 +46,12 @@ jobs:
       - name: Configuration Docker pour Artifact Registry
         run: gcloud auth configure-docker ${{ vars.GCP_REGION }}-docker.pkg.dev
       - name: Récupération du modèle
-        if: secrets.MODEL_URL != ''
-        run: curl --fail --silent --show-error -o models/model.pt "${{ secrets.MODEL_URL }}"
+        if: env.MODEL_URL != ''
+        run: curl --fail --silent --show-error -o models/model.pt "$MODEL_URL"
       - name: Build et push vers Google Artifact Registry
         run: |
           IMAGE="${{ vars.GCP_REGION }}-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.GCP_REPO }}/api:${{ github.sha }}"
-          docker build -f docker/Dockerfile -t "$IMAGE" .
+          docker build -t "$IMAGE" .
           docker push "$IMAGE"
           echo "IMAGE=$IMAGE" >> "$GITHUB_ENV"
       - name: Déploiement sur Google Cloud Run
