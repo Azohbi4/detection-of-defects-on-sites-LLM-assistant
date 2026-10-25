@@ -93,7 +93,7 @@ par photo source et stratifié par classe : aucune photo n'a de patches dans deu
 | Modèle | F1 macro | Rappel macro | PR-AUC macro | Rappel « au moins un défaut » |
 |---|---|---|---|---|
 | Baseline RF (features classiques) | 0.633 | 0.885 | 0.711 | 0.996 |
-| ResNet18 + BCE pondérée | – | – | – | – |
+| ResNet18 + BCE pondérée | 0.716 | 0.923 | 0.837 | 0.991 |
 | ResNet18 + focal loss | – | – | – | – |
 
 **Analyse d'erreurs** (planches générées par `python -m chantier_defects.eval.errors …`) : _à rédiger en 5 à
