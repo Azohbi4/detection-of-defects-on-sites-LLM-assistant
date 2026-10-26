@@ -10,3 +10,9 @@
   title: "Synthèse (non vérifiée) d'après les guides Cerema / IQOA — pathologies des ouvrages d'art en béton"
   url: "https://www.cerema.fr/fr/activites/infrastructures-transport/ouvrages-art"
   licence: "texte de synthèse du projet ; conditions de réutilisation des publications Cerema à vérifier"
+
+# Extrait textuel (pages choisies) d'un document officiel du gouvernement fédéral américain.
+- file: snbi_concrete_extract.txt
+  title: "FHWA, Specifications for the National Bridge Inventory (SNBI), mars 2022, FHWA-HIF-22-017 — extraits : notation de l'état des composants et gravité des défauts du béton"
+  url: "https://www.fhwa.dot.gov/bridge/snbi/snbi_march_2022_publication.pdf"
+  licence: "domaine public (œuvre du gouvernement fédéral US, 17 U.S.C. § 105) ; texte extrait du PDF sans modification"

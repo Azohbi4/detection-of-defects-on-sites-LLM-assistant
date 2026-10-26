@@ -195,8 +195,9 @@ secrets gérés dans Google Secret Manager, CI/CD GitHub Actions.
 - La classification par tuiles localise à la résolution d'une tuile (256 px), sans contour précis du
   défaut ni mesure dimensionnelle.
 - La qualité des recommandations dépend directement des documents indexés dans la base RAG.
-  Les deux fiches actuelles de `knowledge/` sont des **synthèses non vérifiées**, à remplacer par des
-  extraits officiels (voir [knowledge/README.md](knowledge/README.md)).
+  La base contient un extrait officiel du FHWA (SNBI 2022, grille de gravité des défauts du béton) et deux
+  **synthèses non vérifiées**, à remplacer par des extraits officiels (voir [knowledge/README.md](knowledge/README.md)).
+  Les seuils du SNBI sont donnés en pouces et sont propres à la pratique américaine.
 
 ## Mentions
 
