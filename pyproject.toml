@@ -35,6 +35,7 @@ where = ["src"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+addopts = "-m 'not slow'"  # tests payants ou lents : pytest -m slow …
 markers = ["slow: tests qui téléchargent un modèle ou entraînent (désactivés par défaut en CI rapide)"]
 
 [tool.ruff]
