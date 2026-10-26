@@ -7,12 +7,15 @@ Désactivé par défaut : il faut une clé et l'option -m slow.
 import os
 
 import pytest
+from dotenv import load_dotenv
 
 from chantier_defects.config import Settings
 from chantier_defects.llm.report import ClaudeReportWriter, ReportService
 from chantier_defects.models.predictor import analyze_image
 from chantier_defects.schemas import ReportRequest
 from tests.conftest import concrete_image
+
+load_dotenv()  # accepte la clé placée dans .env, comme indiqué dans le README
 
 pytestmark = [
     pytest.mark.slow,
