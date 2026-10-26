@@ -38,10 +38,16 @@ def default_report_service(settings: Settings) -> ReportService:
     if os.environ.get("ANTHROPIC_API_KEY") or os.environ.get("ANTHROPIC_AUTH_TOKEN"):
         from ..llm.report import ClaudeReportWriter
 
-        writer = ClaudeReportWriter(settings.llm_model, settings.llm_effort, settings.llm_max_tokens)
+        writer = ClaudeReportWriter(
+            settings.llm_model,
+            settings.llm_effort,
+            settings.llm_max_tokens,
+            timeout=settings.llm_timeout_s,
+            max_retries=settings.llm_max_retries,
+        )
     else:
         log.warning("Pas de clé ANTHROPIC_API_KEY : les rapports seront générés par gabarit.")
-    return ReportService(retriever, writer, settings.rag_top_k)
+    return ReportService(retriever, writer, settings.rag_top_k, settings.rag_min_score)
 
 
 def create_app(

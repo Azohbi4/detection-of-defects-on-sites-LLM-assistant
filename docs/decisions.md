@@ -40,9 +40,16 @@ en entretien.
 - Sortie JSON contrainte (structured outputs) puis validée par Pydantic (`ReportDraft`).
 - Une recommandation doit citer au moins un passage effectivement récupéré : les identifiants
   inventés sont retirés, et une recommandation sans source valide est supprimée.
-- Un défaut que le modèle de vision n'a pas détecté est retiré du rapport.
+- Un défaut que le modèle de vision n'a pas détecté est retiré du rapport. Si le résumé cite un type de
+  défaut non détecté (hors mentions niées comme « aucune fissure »), il est remplacé par le résumé
+  déterministe.
+- Les passages dont la similarité est inférieure à `rag_min_score` (0,40, calibré sur `knowledge/`) sont
+  écartés : mieux vaut aucune source qu'une source hors sujet.
 - Les passages et le contexte saisi par l'utilisateur sont présentés au LLM comme des données
-  (balises dédiées, consigne explicite), ce qui limite l'injection de consignes.
+  (balises dédiées, consigne explicite, contenu échappé pour qu'un document ne puisse pas fermer une
+  balise), ce qui limite l'injection de consignes.
+- Appel borné : 120 s par tentative et une seule relance, pour rester sous le délai de l'interface.
+  Repli serveur en cas de refus (`fallbacks: "default"`, beta `server-side-fallback-2026-07-01`).
 - Chaque suppression est tracée dans `guardrail_notes`, ce qui rend les garde-fous visibles et non
   silencieux.
 - Mode dégradé : sans clé API, ou si l'appel échoue, un gabarit déterministe produit le rapport.
