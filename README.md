@@ -26,7 +26,7 @@ L'outil est une **aide à la décision** : il trie et documente, et un humain qu
 ```mermaid
 flowchart LR
     U[Inspecteur<br/>UI Streamlit] -->|images| A[POST /analyze]
-    A --> T[Découpage en tuiles] --> M[CNN multi-label<br/>ResNet / EfficientNet]
+    A --> T[Découpage en tuiles] --> M[CNN multi-label<br/>ResNet18]
     M --> Z[Fusion des tuiles<br/>en zones + boîtes]
     Z --> G[Règle de gravité<br/>déterministe]
     G -->|détections JSON| U
@@ -47,7 +47,7 @@ Détails et choix de conception : [docs/architecture.md](docs/architecture.md) e
 | Dataset | Contenu | Usage ici |
 |---|---|---|
 | [CODEBRIM](https://zenodo.org/records/2620293) | Défauts de ponts en béton, multi-label : fissure, éclatement, efflorescence, armatures apparentes, traces de corrosion | Modèle principal (multi-classes) |
-| [SDNET2018](https://digitalcommons.usu.edu/all_datasets/48/) | Patches 256×256 fissuré / non fissuré (tabliers, murs, chaussées) | Baseline binaire, plus simple |
+| [SDNET2018](https://digitalcommons.usu.edu/all_datasets/48/) | Patches 256×256 fissuré / non fissuré (tabliers, murs, chaussées) | Indexation prise en charge (`data.index sdnet2018`) pour une variante binaire ; non évalué ici, aucun résultat publié |
 
 > ⚠️ Vérifie la licence de chaque dataset sur sa page avant téléchargement et cite-la si tu publies.
 > Les données ne sont pas versionnées (`data/` est ignoré par Git).
@@ -67,7 +67,8 @@ par photo source et stratifié par classe : aucune photo n'a de patches dans deu
 
 1. **Baseline classique** : histogrammes HSV, HOG, LBP et features morphologiques (black top-hat,
    squelette, contours), puis Random Forest pondéré. C'est le point de comparaison.
-2. **Deep learning** : transfer learning ImageNet (ResNet18/50, EfficientNet-B0) en multi-label,
+2. **Deep learning** : transfer learning ImageNet en multi-label. Le code accepte ResNet18, ResNet50
+   et EfficientNet-B0 (`--arch`), mais seul **ResNet18** a été entraîné et évalué. L'entraînement se fait
    en deux temps (tête seule, puis dégel du dernier bloc), avec des augmentations qui simulent le
    chantier (flips, rotations, luminosité/contraste, léger flou). Le déséquilibre est traité par
    BCE pondérée ou focal loss, que l'on compare. Les runs sont suivis dans MLflow.
@@ -174,6 +175,9 @@ pytest
 
 Les tests utilisent des images synthétiques et des doublures du modèle, du LLM et de la base
 documentaire. Ils ne demandent ni données, ni clé API, ni réseau.
+
+Un contrôle de bout en bout contre la vraie API Claude est disponible à part (payant, quelques centimes) :
+`pytest -m slow tests/test_live_claude.py`, avec `ANTHROPIC_API_KEY` définie.
 
 ### Déploiement Google Cloud Platform (GCP)
 
