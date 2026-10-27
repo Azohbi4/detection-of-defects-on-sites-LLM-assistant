@@ -85,7 +85,33 @@ gcloud run services describe $SERVICE --region $REGION --format="value(status.ur
 
 > **Avantage économique majeur :** `--min-instances 0` active le *scale-to-zero* : aucune ressource n'est facturée lorsque l'API n'est pas sollicitée (démarrage à froid de quelques secondes à la première requête).
 
-## 5. CI/CD avec GitHub Actions
+## 5. Interface Streamlit (second service Cloud Run)
+
+L'interface est un client HTTP léger de l'API : son image (`Dockerfile.ui`) ne contient ni PyTorch ni modèle.
+
+```bash
+gcloud builds submit --config cloudbuild.ui.yaml .      # image ui:v1 dans le même registre
+
+API_URL=$(gcloud run services describe $SERVICE --region $REGION --format="value(status.url)")
+gcloud run deploy ui-chantier \
+  --image $REGION-docker.pkg.dev/$PROJECT_ID/$REPO/ui:v1 \
+  --region $REGION \
+  --allow-unauthenticated \
+  --port 8080 \
+  --cpu 1 \
+  --memory 512Mi \
+  --min-instances 0 \
+  --max-instances 1 \
+  --session-affinity \
+  --timeout 3600 \
+  --set-env-vars CHANTIER_API_URL=$API_URL
+```
+
+Streamlit garde l'état de chaque session en mémoire et passe par une WebSocket : `--max-instances 1` et
+`--session-affinity` évitent qu'un upload arrive sur une autre instance que la session, et `--timeout 3600`
+évite de couper la connexion au bout des 5 minutes par défaut.
+
+## 6. CI/CD avec GitHub Actions
 
 Le workflow [`.github/workflows/ci.yml`](../.github/workflows/ci.yml) automatise le cycle de vie :
 - À chaque push / PR : exécution des linters (`ruff`) et des tests (`pytest`).
@@ -98,7 +124,7 @@ Variables requises côté GitHub (`Settings` > `Secrets and variables` > `Action
   rôles `roles/run.admin` et `roles/artifactregistry.writer`) et, si `models/model.pt` n'est pas versionné,
   `MODEL_URL` (URL de téléchargement du modèle).
 
-## 6. Monitoring & Dérive (Cloud Logging & Cloud Monitoring)
+## 7. Monitoring & Dérive (Cloud Logging & Cloud Monitoring)
 
 - Les logs JSON structurés émis par l'API sont automatiquement ingérés par **Google Cloud Logging**.
 - Visualisation des requêtes et latences :

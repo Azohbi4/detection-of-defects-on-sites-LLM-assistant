@@ -65,7 +65,8 @@ st.title("Détection de défauts sur béton")
 st.caption("Fissures, éclatements, armatures apparentes… Aide à la décision, validation humaine requise.")
 
 try:
-    health = httpx.get(f"{API_URL}/health", timeout=5).json()
+    # Délai large : sur Cloud Run, l'API peut démarrer à froid (chargement du modèle et de la base RAG).
+    health = httpx.get(f"{API_URL}/health", timeout=60).json()
     st.sidebar.success(f"API OK — modèle : {health['model_version']}")
 except httpx.HTTPError:
     st.sidebar.error(f"API injoignable sur {API_URL}")
@@ -89,7 +90,7 @@ if analyses := st.session_state.get("analyses"):
     for i, a in enumerate(analyses):
         with cols[i % len(cols)]:
             if a["image_id"] in by_name:
-                st.image(annotate(Image.open(by_name[a["image_id"]]), a), use_container_width=True)
+                st.image(annotate(Image.open(by_name[a["image_id"]]), a), width="stretch")
             st.markdown(
                 f"**{a['image_id']}** — {SEVERITY_BADGE[a['severity']['level']]}, "
                 f"{len(a['detections'])} zone(s), confiance moyenne {a['mean_confidence']:.2f}"
