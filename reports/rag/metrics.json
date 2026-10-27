@@ -1,0 +1,400 @@
+{
+  "k": 3,
+  "n_queries": 15,
+  "hit@3": 1.0,
+  "precision@3": 0.8666666666666667,
+  "mrr@3": 1.0,
+  "max_off_topic_top1": 0.4188598525156478,
+  "min_production_relevant": 0.5828113107393686,
+  "sweep": [
+    {
+      "threshold": 0.3,
+      "queries_served": 1.0,
+      "relevant_kept": 1.0,
+      "irrelevant_kept": 1.0,
+      "off_topic_leak": 0.875
+    },
+    {
+      "threshold": 0.35,
+      "queries_served": 1.0,
+      "relevant_kept": 1.0,
+      "irrelevant_kept": 1.0,
+      "off_topic_leak": 0.625
+    },
+    {
+      "threshold": 0.4,
+      "queries_served": 1.0,
+      "relevant_kept": 1.0,
+      "irrelevant_kept": 1.0,
+      "off_topic_leak": 0.125
+    },
+    {
+      "threshold": 0.45,
+      "queries_served": 1.0,
+      "relevant_kept": 1.0,
+      "irrelevant_kept": 1.0,
+      "off_topic_leak": 0.0
+    },
+    {
+      "threshold": 0.5,
+      "queries_served": 1.0,
+      "relevant_kept": 0.9743589743589743,
+      "irrelevant_kept": 1.0,
+      "off_topic_leak": 0.0
+    },
+    {
+      "threshold": 0.55,
+      "queries_served": 1.0,
+      "relevant_kept": 0.9230769230769231,
+      "irrelevant_kept": 0.3333333333333333,
+      "off_topic_leak": 0.0
+    },
+    {
+      "threshold": 0.6,
+      "queries_served": 0.8,
+      "relevant_kept": 0.5897435897435898,
+      "irrelevant_kept": 0.16666666666666666,
+      "off_topic_leak": 0.0
+    },
+    {
+      "threshold": 0.65,
+      "queries_served": 0.3333333333333333,
+      "relevant_kept": 0.1794871794871795,
+      "irrelevant_kept": 0.0,
+      "off_topic_leak": 0.0
+    }
+  ],
+  "recommended_threshold": 0.5008355816275082,
+  "per_query": [
+    {
+      "defect": "crack",
+      "kind": "production",
+      "query": "fissure béton causes diagnostic réparation injection crack concrete repair",
+      "hits": [
+        {
+          "chunk_id": "fhwa_birm_concrete_defects.md#1",
+          "score": 0.616,
+          "relevant": true
+        },
+        {
+          "chunk_id": "fhwa_birm_concrete_defects.md#3",
+          "score": 0.614,
+          "relevant": true
+        },
+        {
+          "chunk_id": "cerema_pathologies_beton_iqoa.md#3",
+          "score": 0.607,
+          "relevant": true
+        }
+      ]
+    },
+    {
+      "defect": "crack",
+      "kind": "reformulation",
+      "query": "fissures dans un voile en béton armé",
+      "hits": [
+        {
+          "chunk_id": "cerema_pathologies_beton_iqoa.md#1",
+          "score": 0.603,
+          "relevant": true
+        },
+        {
+          "chunk_id": "fhwa_birm_concrete_defects.md#1",
+          "score": 0.574,
+          "relevant": true
+        },
+        {
+          "chunk_id": "cerema_pathologies_beton_iqoa.md#3",
+          "score": 0.573,
+          "relevant": true
+        }
+      ]
+    },
+    {
+      "defect": "crack",
+      "kind": "reformulation",
+      "query": "concrete crack width severity",
+      "hits": [
+        {
+          "chunk_id": "snbi_concrete_extract.txt#10",
+          "score": 0.722,
+          "relevant": true
+        },
+        {
+          "chunk_id": "snbi_concrete_extract.txt#9",
+          "score": 0.665,
+          "relevant": true
+        },
+        {
+          "chunk_id": "snbi_concrete_extract.txt#11",
+          "score": 0.656,
+          "relevant": true
+        }
+      ]
+    },
+    {
+      "defect": "spallation",
+      "kind": "production",
+      "query": "éclatement épaufrure béton réparation ragréage spalling concrete repair",
+      "hits": [
+        {
+          "chunk_id": "fhwa_birm_concrete_defects.md#6",
+          "score": 0.643,
+          "relevant": true
+        },
+        {
+          "chunk_id": "fhwa_birm_concrete_defects.md#4",
+          "score": 0.63,
+          "relevant": true
+        },
+        {
+          "chunk_id": "cerema_pathologies_beton_iqoa.md#5",
+          "score": 0.615,
+          "relevant": true
+        }
+      ]
+    },
+    {
+      "defect": "spallation",
+      "kind": "reformulation",
+      "query": "béton éclaté qui se détache",
+      "hits": [
+        {
+          "chunk_id": "cerema_pathologies_beton_iqoa.md#4",
+          "score": 0.555,
+          "relevant": true
+        },
+        {
+          "chunk_id": "fhwa_birm_concrete_defects.md#4",
+          "score": 0.538,
+          "relevant": true
+        },
+        {
+          "chunk_id": "fhwa_birm_concrete_defects.md#1",
+          "score": 0.52,
+          "relevant": false
+        }
+      ]
+    },
+    {
+      "defect": "spallation",
+      "kind": "reformulation",
+      "query": "concrete spalling delamination",
+      "hits": [
+        {
+          "chunk_id": "fhwa_birm_concrete_defects.md#4",
+          "score": 0.627,
+          "relevant": true
+        },
+        {
+          "chunk_id": "cerema_pathologies_beton_iqoa.md#4",
+          "score": 0.565,
+          "relevant": true
+        },
+        {
+          "chunk_id": "fhwa_birm_concrete_defects.md#5",
+          "score": 0.558,
+          "relevant": true
+        }
+      ]
+    },
+    {
+      "defect": "efflorescence",
+      "kind": "production",
+      "query": "efflorescence béton infiltration eau étanchéité efflorescence leaching",
+      "hits": [
+        {
+          "chunk_id": "fhwa_birm_concrete_defects.md#11",
+          "score": 0.699,
+          "relevant": true
+        },
+        {
+          "chunk_id": "fhwa_birm_concrete_defects.md#12",
+          "score": 0.639,
+          "relevant": true
+        },
+        {
+          "chunk_id": "cerema_pathologies_beton_iqoa.md#11",
+          "score": 0.621,
+          "relevant": true
+        }
+      ]
+    },
+    {
+      "defect": "efflorescence",
+      "kind": "reformulation",
+      "query": "dépôt blanc sur le béton",
+      "hits": [
+        {
+          "chunk_id": "fhwa_birm_concrete_defects.md#11",
+          "score": 0.61,
+          "relevant": true
+        },
+        {
+          "chunk_id": "fhwa_birm_concrete_defects.md#10",
+          "score": 0.557,
+          "relevant": false
+        },
+        {
+          "chunk_id": "cerema_pathologies_beton_iqoa.md#11",
+          "score": 0.542,
+          "relevant": true
+        }
+      ]
+    },
+    {
+      "defect": "efflorescence",
+      "kind": "reformulation",
+      "query": "white deposits leaching on concrete",
+      "hits": [
+        {
+          "chunk_id": "fhwa_birm_concrete_defects.md#11",
+          "score": 0.69,
+          "relevant": true
+        },
+        {
+          "chunk_id": "fhwa_birm_concrete_defects.md#10",
+          "score": 0.612,
+          "relevant": false
+        },
+        {
+          "chunk_id": "fhwa_birm_concrete_defects.md#12",
+          "score": 0.604,
+          "relevant": true
+        }
+      ]
+    },
+    {
+      "defect": "exposed_bars",
+      "kind": "production",
+      "query": "armatures apparentes corrosion acier enrobage réparation exposed reinforcement",
+      "hits": [
+        {
+          "chunk_id": "fhwa_birm_concrete_defects.md#7",
+          "score": 0.705,
+          "relevant": true
+        },
+        {
+          "chunk_id": "cerema_pathologies_beton_iqoa.md#8",
+          "score": 0.623,
+          "relevant": true
+        },
+        {
+          "chunk_id": "fhwa_birm_concrete_defects.md#8",
+          "score": 0.585,
+          "relevant": true
+        }
+      ]
+    },
+    {
+      "defect": "exposed_bars",
+      "kind": "reformulation",
+      "query": "acier à nu visible dans le béton",
+      "hits": [
+        {
+          "chunk_id": "fhwa_birm_concrete_defects.md#7",
+          "score": 0.573,
+          "relevant": true
+        },
+        {
+          "chunk_id": "cerema_pathologies_beton_iqoa.md#9",
+          "score": 0.531,
+          "relevant": false
+        },
+        {
+          "chunk_id": "fhwa_birm_concrete_defects.md#6",
+          "score": 0.525,
+          "relevant": false
+        }
+      ]
+    },
+    {
+      "defect": "exposed_bars",
+      "kind": "reformulation",
+      "query": "exposed rebar section loss",
+      "hits": [
+        {
+          "chunk_id": "fhwa_birm_concrete_defects.md#7",
+          "score": 0.589,
+          "relevant": true
+        },
+        {
+          "chunk_id": "fhwa_birm_concrete_defects.md#8",
+          "score": 0.582,
+          "relevant": true
+        },
+        {
+          "chunk_id": "cerema_pathologies_beton_iqoa.md#7",
+          "score": 0.462,
+          "relevant": true
+        }
+      ]
+    },
+    {
+      "defect": "corrosion_stain",
+      "kind": "production",
+      "query": "traces de rouille corrosion armatures carbonatation chlorures corrosion staining",
+      "hits": [
+        {
+          "chunk_id": "cerema_pathologies_beton_iqoa.md#9",
+          "score": 0.663,
+          "relevant": true
+        },
+        {
+          "chunk_id": "fhwa_birm_concrete_defects.md#9",
+          "score": 0.583,
+          "relevant": true
+        },
+        {
+          "chunk_id": "cerema_pathologies_beton_iqoa.md#8",
+          "score": 0.547,
+          "relevant": false
+        }
+      ]
+    },
+    {
+      "defect": "corrosion_stain",
+      "kind": "reformulation",
+      "query": "coulures de rouille sur le béton",
+      "hits": [
+        {
+          "chunk_id": "cerema_pathologies_beton_iqoa.md#9",
+          "score": 0.636,
+          "relevant": true
+        },
+        {
+          "chunk_id": "fhwa_birm_concrete_defects.md#9",
+          "score": 0.589,
+          "relevant": true
+        },
+        {
+          "chunk_id": "fhwa_birm_concrete_defects.md#10",
+          "score": 0.561,
+          "relevant": true
+        }
+      ]
+    },
+    {
+      "defect": "corrosion_stain",
+      "kind": "reformulation",
+      "query": "rust staining on concrete",
+      "hits": [
+        {
+          "chunk_id": "fhwa_birm_concrete_defects.md#9",
+          "score": 0.636,
+          "relevant": true
+        },
+        {
+          "chunk_id": "fhwa_birm_concrete_defects.md#10",
+          "score": 0.629,
+          "relevant": true
+        },
+        {
+          "chunk_id": "fhwa_birm_concrete_defects.md#11",
+          "score": 0.56,
+          "relevant": true
+        }
+      ]
+    }
+  ]
+}

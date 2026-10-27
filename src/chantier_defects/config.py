@@ -22,11 +22,12 @@ class Settings(BaseSettings):
     qdrant_url: str | None = None
     qdrant_path: str | None = None  # mode embarqué (sans serveur) si qdrant_url est vide
     qdrant_collection: str = "pathologies_beton"
-    embedding_model: str = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
+    embedding_model: str = "google/embeddinggemma-300m"  # comparé à MiniLM et mpnet : docs/decisions.md §6
     rag_top_k: int = 3
-    # Similarité cosinus minimale d'un passage. Calibrée sur knowledge/ : passages pertinents 0,45-0,73,
-    # requêtes hors sujet 0,10-0,47. À recalibrer si l'on change de documents ou de modèle d'embedding.
-    rag_min_score: float = 0.40
+    # Similarité cosinus minimale d'un passage. Calibrée par `python -m chantier_defects.eval.rag knowledge/` :
+    # hors sujet ≤ 0,42, passages pertinents des requêtes de production ≥ 0,58. À recalibrer si l'on
+    # change de documents ou de modèle d'embedding.
+    rag_min_score: float = 0.50
 
     # LLM (la clé est lue par le SDK depuis ANTHROPIC_API_KEY)
     llm_model: str = "claude-opus-5-5"

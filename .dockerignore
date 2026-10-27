@@ -12,3 +12,4 @@ docs
 **/__pycache__
 **/*.pyc
 .env
+knowledge/snbi_march_2022.pdf

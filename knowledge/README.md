@@ -5,10 +5,16 @@ décrit. Chaque recommandation du rapport doit citer l'un de ces passages.
 
 ## État actuel
 
-Les deux fichiers présents (`fhwa_birm_concrete_defects.md`, `cerema_pathologies_beton_iqoa.md`) sont des
-**synthèses rédigées pour la démonstration**, pas des extraits des guides cités. Leurs valeurs (ouvertures de
-fissure, pertes de section, normes) doivent être vérifiées dans les documents originaux. L'étape suivante est de
-les remplacer par des extraits officiels dont la licence a été confirmée.
+- `snbi_concrete_extract.txt` est un **extrait officiel** : FHWA, *Specifications for the National Bridge
+  Inventory* (mars 2022, FHWA-HIF-22-017), domaine public. Il reprend mot pour mot les définitions, les codes de
+  notation de l'état des composants (tableau 20), un exemple de tablier en béton armé et la grille de gravité des
+  défauts du béton (annexe C, tableau 47). Seule la mise en forme change (une ligne de tableau par paragraphe),
+  pour que chaque passage indexé reste lisible. Les numéros de page sont indiqués. Le PDF source
+  (`snbi_march_2022.pdf`, 6,7 Mo) n'est pas versionné : on le retélécharge depuis l'URL de `sources.yaml`.
+- `fhwa_birm_concrete_defects.md` et `cerema_pathologies_beton_iqoa.md` sont des **synthèses rédigées pour la
+  démonstration**, pas des extraits des guides cités. Leurs valeurs (ouvertures de fissure, pertes de section,
+  normes) doivent être vérifiées dans les documents originaux. Il faut encore les remplacer par des extraits
+  officiels dont la licence a été confirmée.
 
 ## Ajouter un document
 

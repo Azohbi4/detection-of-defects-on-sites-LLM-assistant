@@ -22,9 +22,23 @@ def test_sources_manifest_required(tmp_path):
         load_sources(tmp_path)
 
 
+def test_recreate_collection_drops_old_points_on_disk(tmp_path):
+    from qdrant_client import QdrantClient, models
+
+    client = QdrantClient(path=str(tmp_path))
+    client.create_collection("c", vectors_config=models.VectorParams(size=4, distance=models.Distance.COSINE))
+    client.upsert("c", points=[models.PointStruct(id=1, vector=[0.1] * 4)])
+    retriever = QdrantRetriever(client, "c", "google/embeddinggemma-300m")  # 768 dimensions
+
+    retriever.recreate_collection()
+    client.upsert("c", points=[models.PointStruct(id=2, vector=[0.1] * 768)])
+    assert client.count("c").count == 1
+    client.close()
+
+
 @pytest.mark.slow
 def test_ingest_and_search_in_memory(tmp_path):
-    """Intégration réelle Qdrant (mode mémoire) + embeddings fastembed (télécharge ~220 Mo au premier lancement)."""
+    """Intégration réelle Qdrant (mode mémoire) + embeddings fastembed (télécharge ~1,2 Go au premier lancement)."""
     from qdrant_client import QdrantClient
 
     from chantier_defects.config import Settings

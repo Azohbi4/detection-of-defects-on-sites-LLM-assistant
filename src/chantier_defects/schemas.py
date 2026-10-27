@@ -5,6 +5,9 @@ from typing import Literal
 from pydantic import BaseModel, Field
 
 SeverityLevel = Literal["faible", "moyen", "élevé"]
+# Codes des classes (labels.CODEBRIM_CLASSES). Imposés au LLM par le schéma : sans cela il écrit le libellé
+# (« fissure »), qui ne correspond plus aux détections et fait retirer le défaut par les garde-fous.
+DefectCode = Literal["crack", "spallation", "efflorescence", "exposed_bars", "corrosion_stain"]
 
 DISCLAIMER = (
     "Aide à la décision générée automatiquement. Validation humaine requise : ce rapport ne remplace "
@@ -60,7 +63,7 @@ class ReportRequest(BaseModel):
 
 class DraftDefect(BaseModel):
     image_id: str
-    defect_type: str
+    defect_type: DefectCode = Field(description="Code exact du champ « type » de la détection, pas son libellé")
     location: str = Field(description="Localisation lisible dans l'image, ex. « quart supérieur gauche »")
 
 

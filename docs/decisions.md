@@ -43,8 +43,8 @@ en entretien.
 - Un défaut que le modèle de vision n'a pas détecté est retiré du rapport. Si le résumé cite un type de
   défaut non détecté (hors mentions niées comme « aucune fissure »), il est remplacé par le résumé
   déterministe.
-- Les passages dont la similarité est inférieure à `rag_min_score` (0,40, calibré sur `knowledge/`) sont
-  écartés : mieux vaut aucune source qu'une source hors sujet.
+- Les passages dont la similarité est inférieure à `rag_min_score` (0,50, calibré sur `knowledge/`, voir §6)
+  sont écartés : mieux vaut aucune source qu'une source hors sujet.
 - Les passages et le contexte saisi par l'utilisateur sont présentés au LLM comme des données
   (balises dédiées, consigne explicite, contenu échappé pour qu'un document ne puisse pas fermer une
   balise), ce qui limite l'injection de consignes.
@@ -61,6 +61,25 @@ en entretien.
   requête, et les documents ne quittent pas l'infrastructure au moment de l'indexation.
 - Qdrant tourne en conteneur avec docker-compose en local. Les tests et le développement sans Docker
   peuvent utiliser le mode embarqué (`CHANTIER_QDRANT_PATH`).
+- **Choix du modèle** : `google/embeddinggemma-300m`, retenu sur une évaluation de la recherche
+  (`python -m chantier_defects.eval.rag knowledge/`, passages pertinents étiquetés à la main dans
+  `knowledge/eval_queries.yaml`, 15 requêtes FR/EN et 8 requêtes hors sujet, top-3) :
+
+  | Modèle | Taille | hit@3 | precision@3 | MRR@3 |
+  |---|---|---|---|---|
+  | paraphrase-multilingual-MiniLM-L12-v2 | 0,2 Go | 0.87 | 0.58 | 0.76 |
+  | paraphrase-multilingual-mpnet-base-v2 | 1,0 Go | 0.80 | 0.60 | 0.76 |
+  | embeddinggemma-300m | 1,2 Go | 1.00 | 0.87 | 1.00 |
+
+  Avec MiniLM, la requête de production « éclatement » ne remontait aucun passage pertinent (des passages
+  sur les fissures à la place). Le coût : une image Docker plus lourde et un démarrage à froid plus long
+  sur Cloud Run. Le modèle est distribué sous les conditions d'utilisation Gemma (pas Apache-2.0).
+- **Seuil `rag_min_score` = 0,50** : milieu de l'écart entre le meilleur score d'une requête hors sujet
+  (0,42) et le plus faible passage pertinent d'une requête de production (0,58). À ce seuil, aucune
+  requête hors sujet ne reçoit de source et toutes les requêtes gardent un passage pertinent.
+- Changer de modèle change la taille des vecteurs : relancer l'ingestion (elle recrée la collection),
+  puis l'évaluation pour recaler le seuil.
+- Limite : jeu d'évaluation petit et étiqueté par l'auteur, pas par des inspecteurs.
 
 ## 7. Indicateur de dérive
 

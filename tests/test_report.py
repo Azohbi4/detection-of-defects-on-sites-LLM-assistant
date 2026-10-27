@@ -1,3 +1,9 @@
+from typing import get_args
+
+import pytest
+from pydantic import ValidationError
+
+from chantier_defects.labels import CODEBRIM_CLASSES
 from chantier_defects.llm.report import (
     LLMUnavailable,
     ReportService,
@@ -8,7 +14,14 @@ from chantier_defects.llm.report import (
     mentioned_defects,
 )
 from chantier_defects.models.predictor import analyze_image
-from chantier_defects.schemas import BBox, DraftDefect, DraftRecommendation, ReportDraft, ReportRequest
+from chantier_defects.schemas import (
+    BBox,
+    DefectCode,
+    DraftDefect,
+    DraftRecommendation,
+    ReportDraft,
+    ReportRequest,
+)
 from tests.conftest import concrete_image
 
 
@@ -108,3 +121,13 @@ def test_low_score_passages_are_dropped():
             ]
 
     assert [p.chunk_id for p in gather_passages(ScoredRetriever(), ["crack"], 3, min_score=0.4)] == ["a#0"]
+
+
+def test_defect_code_matches_model_classes():
+    assert set(get_args(DefectCode)) == set(CODEBRIM_CLASSES)
+
+
+def test_draft_defect_rejects_french_label():
+    # Le LLM doit renvoyer le code (« crack ») : un libellé ne correspondrait à aucune détection.
+    with pytest.raises(ValidationError):
+        DraftDefect(image_id="img1", defect_type="fissure", location="centre")

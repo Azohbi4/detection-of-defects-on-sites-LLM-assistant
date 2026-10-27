@@ -29,3 +29,6 @@ pytest_tmp/
 .idea/
 Thumbs.db
 .DS_Store
+
+# PDF source complet du SNBI (6,7 Mo) : seul son extrait texte est versionné et indexé
+knowledge/snbi_march_2022.pdf

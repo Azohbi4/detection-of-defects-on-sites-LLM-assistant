@@ -1,0 +1,38 @@
+FHWA, Specifications for the National Bridge Inventory (SNBI), March 2022, Publication No. FHWA-HIF-22-017.
+Source: https://www.fhwa.dot.gov/bridge/snbi/snbi_march_2022_publication.pdf
+Licence: public domain (U.S. Federal Government work, 17 U.S.C. § 105).
+Wording reproduced from the PDF without change; only the layout (tables flattened into one paragraph per row) and the
+bracketed section labels were added. Pages (printed numbering): definitions p. 9-10, Subsection 7.1 p. 239-243,
+Appendix C p. 331-332.
+
+[Definitions, p. 9-10] Efflorescence: A deposit on concrete, brick, stone, or mortar caused by crystallization of carbonates brought to the surface by moisture in the masonry or concrete. Efflorescence is a combination of calcium carbonate leached out of the cement paste and other recrystallized carbonate and chloride compounds.
+
+[Subsection 7.1, Component condition ratings, p. 239] Condition ratings indicate the existing field conditions of the bridge components and waterway. A condition rating code must therefore consider the type, location, and severity of the defects; the extent to which they exist throughout the item being evaluated; and the degree to which the defects affect strength and/or performance of the bridge or component.
+
+[Subsection 7.1, defect severity terms, p. 239] As used in the condition rating tables, an inherent defect is not indicative of damage or deterioration, but is characteristic of the material or results from normal construction practices. A minor defect is one where damage or deterioration has initiated but is not yet considered significant. A moderate defect is one where damage or deterioration are significant, but the strength and performance of the component are not affected. A major defect affects the strength and/or performance of the component, as determined by a structural and/or hydraulic review.
+
+[Subsection 7.1, defect extent terms, p. 240] A defect is considered widespread when it is present in many separate areas of the component, while an isolated defect occurs in one or a few concentrated locations. The term "some" is used when the defect prevalence is more than isolated and less than widespread.
+
+[Table 20. Codes and descriptions for component condition ratings, p. 240] Code 9 EXCELLENT: Isolated inherent defects. Code 8 VERY GOOD: Some inherent defects. Code 7 GOOD: Some minor defects. Code 6 SATISFACTORY: Widespread minor or isolated moderate defects. Code 5 FAIR: Some moderate defects; strength and performance of the component are not affected.
+
+[Table 20. Codes and descriptions for component condition ratings, p. 240, continued] Code 4 POOR: Widespread moderate or isolated major defects; strength and/or performance of the component is affected. Code 3 SERIOUS: Major defects; strength and/or performance of the component is seriously affected. Condition typically necessitates more frequent monitoring, load restrictions, and/or corrective actions. Code 2 CRITICAL: Major defects; component is severely compromised. Condition typically necessitates frequent monitoring, significant load restrictions, and/or corrective actions in order to keep the bridge open.
+
+[Deck condition rating, commentary, p. 241] Use destructive or non-destructive testing results or visual condition indicators of materials covering the surfaces being assessed when top, underside or both surfaces are not visible for assessment. Past inspection reports and repair records may also provide supplemental information to aid in the determination of the condition rating.
+
+[Example - Deck condition rating, reinforced concrete deck, p. 242-243] Reinforced concrete (RC) bridge deck approximately 270' long x 40' wide. Location 1: Full width transverse cracks, 0.010" wide, spaced at 3' to 5' for full length of deck (Cracking, Inherent, throughout, widespread). Location 2: Spalls >1" deep along full length of expansion joint, ~40 ft2 total area (Spalling, Moderate, isolated). Location 3: Spalls up to 24"x18" and >1" deep with exposed rebar (no section loss) and patched areas that are unsound, ~100 ft2 total area (Spalling with exposed rebar, patched area that is unsound, Moderate, isolated). Location 4: Spalls up to 24"x12" and >1" deep with exposed rebar (no section loss) and patched areas that are unsound, ~130 ft2 total area (Spalling with exposed rebar, patched area that is unsound, Moderate, isolated).
+
+[Example - Deck condition rating, results, p. 243] Results: There are several areas of isolated moderate defects that can best be characterized together as "some moderate defects." The rest of the deck surface has inherent defects. There are no defects visible on the underside of the deck, and none of the observed defects appear to indicate more significant problems. The deck is best characterized as having "some moderate defects." Report 5.
+
+[Appendix C, Table 47. Concrete - defect severity guidance, delamination and spalling, p. 331] Concrete defect: Delamination, Spalling, Patched Area. Minor: Delamination, small spall, or patched area that is sound. Moderate: Large spall or patched area that is unsound or showing distress.
+
+[Appendix C, spall size, p. 332] In general, spall size can be considered: Small spall - 1 inch or less deep or 6 inches or less in diameter. Large spall - greater than 1 inch deep or greater than 6 inches in diameter.
+
+[Appendix C, Table 47. Concrete - defect severity guidance, exposed reinforcement, p. 331] Concrete defect: Exposed Rebar. Minor: Present without measurable section loss. Moderate: Present with measurable section loss. Concrete defect: Exposed Prestressing. Minor: Present without section loss. Moderate: Present with section loss.
+
+[Appendix C, Table 47. Concrete - defect severity guidance, cracking, p. 331] Concrete defect: Cracking. Minor: Unsealed medium width cracks or unsealed medium pattern (map) cracking. Moderate: Wide cracks or heavy pattern (map) cracking. The concrete crack defect description definitions describe generalized distress, but the width, spacing, location, orientation, and structural or non-structural nature of the cracking should also be considered.
+
+[Appendix C, concrete crack width and spacing, p. 331] In general, cracks can be considered: Insignificant - crack width less than 0.004 inches (prestressed) or 0.012 inches (reinforced), or medium width cracks that have been sealed. Medium - crack width ranging from 0.004 - 0.009 inches (prestressed) or 0.012 to 0.05 inches (reinforced). Wide - crack width wider than 0.009 inches (prestressed) or 0.05 inches (reinforced). Medium pattern (map) - crack spacing of 1 ft. to 3 ft. Heavy pattern (map) - crack spacing less than 1 ft.
+
+[Appendix C, Table 47. Concrete - defect severity guidance, abrasion and scaling, p. 331] Concrete defect: Abrasion, Wear, Scaling. Minor: Exposed coarse aggregate, but the aggregate remains secure in the concrete. Moderate: Coarse aggregate is loose or has popped out of the concrete matrix.
+
+[Appendix C, Table 47. Concrete - defect severity guidance, efflorescence and rust staining, p. 331-332] Concrete defect: Efflorescence, Rust Staining. Minor: Surface white or leaching with little or no build-up. No rust staining present. Moderate: Rust staining or heavy build-up of efflorescence. The rust staining defect applies only to reinforcing steel.

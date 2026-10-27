@@ -15,6 +15,7 @@ import time
 from contextlib import asynccontextmanager
 from pathlib import Path
 
+from dotenv import load_dotenv
 from fastapi import FastAPI, File, HTTPException, Request, UploadFile
 from PIL import Image, UnidentifiedImageError
 
@@ -33,6 +34,7 @@ Image.MAX_IMAGE_PIXELS = 60_000_000  # protège contre les « bombes de décompr
 def default_report_service(settings: Settings) -> ReportService:
     from ..llm.rag import build_retriever
 
+    load_dotenv()  # hors Docker Compose, la clé du .env n'est pas dans l'environnement ; n'écrase rien
     retriever = build_retriever(settings)
     writer = None
     if os.environ.get("ANTHROPIC_API_KEY") or os.environ.get("ANTHROPIC_AUTH_TOKEN"):
