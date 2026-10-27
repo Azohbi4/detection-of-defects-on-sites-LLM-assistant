@@ -82,6 +82,11 @@ class QdrantRetriever:
         from qdrant_client import models
 
         if self.client.collection_exists(self.collection):
+            # Mode embarqué (qdrant-client 1.20) : la suppression laisse le fichier SQLite ouvert ; sous Windows il
+            # n'est pas effacé et l'ancien contenu revient (passages obsolètes, ou erreur si la dimension change).
+            local = getattr(getattr(self.client, "_client", None), "collections", {}).get(self.collection)
+            if local is not None:
+                local.close()
             self.client.delete_collection(self.collection)
         self.client.create_collection(
             self.collection,

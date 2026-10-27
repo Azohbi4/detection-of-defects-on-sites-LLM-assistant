@@ -77,8 +77,8 @@ en entretien.
 - **Seuil `rag_min_score` = 0,50** : milieu de l'écart entre le meilleur score d'une requête hors sujet
   (0,42) et le plus faible passage pertinent d'une requête de production (0,58). À ce seuil, aucune
   requête hors sujet ne reçoit de source et toutes les requêtes gardent un passage pertinent.
-- Changer de modèle change la taille des vecteurs : supprimer `qdrant_storage/` (mode embarqué) puis
-  relancer l'ingestion, et relancer l'évaluation pour recaler le seuil.
+- Changer de modèle change la taille des vecteurs : relancer l'ingestion (elle recrée la collection),
+  puis l'évaluation pour recaler le seuil.
 - Limite : jeu d'évaluation petit et étiqueté par l'auteur, pas par des inspecteurs.
 
 ## 7. Indicateur de dérive
