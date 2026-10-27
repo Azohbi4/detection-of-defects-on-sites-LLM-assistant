@@ -1,8 +1,12 @@
 # FHWA Bridge Inspector's Reference Manual (BIRM) — Concrete Distress & Defects
 
-Source: Federal Highway Administration (FHWA), U.S. Department of Transportation.
-Document: Bridge Inspector's Reference Manual (FHWA-NHI-12-049 / BIRM), Chapter on Concrete Components and Distress Identification.
-Licence: Domaine public (publication du gouvernement fédéral américain, 17 U.S.C. § 105).
+Source d'inspiration : Federal Highway Administration (FHWA), U.S. Department of Transportation.
+Document de référence à consulter : Bridge Inspector's Reference Manual (FHWA-NHI-12-049 / BIRM), Chapter on Concrete Components and Distress Identification.
+Licence : le document original relève en principe du domaine public (17 U.S.C. § 105), à confirmer sur le document.
+
+> **Statut : synthèse rédigée, non vérifiée.** Ce texte est une reformulation thématique, pas un extrait
+> du document cité. Avant tout usage hors démonstration, vérifier chaque valeur et préconisation dans le
+> document original, ou remplacer ce fichier par l'extrait officiel (voir knowledge/README.md).
 
 ## 1. Concrete Cracking (Fissuration du béton)
 

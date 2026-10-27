@@ -24,11 +24,16 @@ class Settings(BaseSettings):
     qdrant_collection: str = "pathologies_beton"
     embedding_model: str = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
     rag_top_k: int = 3
+    # Similarité cosinus minimale d'un passage. Calibrée sur knowledge/ : passages pertinents 0,45-0,73,
+    # requêtes hors sujet 0,10-0,47. À recalibrer si l'on change de documents ou de modèle d'embedding.
+    rag_min_score: float = 0.40
 
     # LLM (la clé est lue par le SDK depuis ANTHROPIC_API_KEY)
     llm_model: str = "claude-opus-5-5"
     llm_effort: str = "medium"
     llm_max_tokens: int = 16000
+    llm_timeout_s: float = 120.0  # par tentative ; reste sous le délai de 300 s de l'UI, retries compris
+    llm_max_retries: int = 1
 
     # Monitoring
     monitor_window: int = 200

@@ -1,8 +1,11 @@
 from chantier_defects.llm.report import (
     LLMUnavailable,
     ReportService,
+    RetrievedChunk,
     TemplateReportWriter,
+    gather_passages,
     location_label,
+    mentioned_defects,
 )
 from chantier_defects.models.predictor import analyze_image
 from chantier_defects.schemas import BBox, DraftDefect, DraftRecommendation, ReportDraft, ReportRequest
@@ -70,3 +73,38 @@ def test_no_sources_means_no_recommendation(fake_predictor):
 def test_location_label():
     assert location_label(BBox(x=0, y=0, w=100, h=100), 900, 900).startswith("zone haut-gauche")
     assert location_label(BBox(x=400, y=400, w=100, h=100), 900, 900).startswith("centre")
+
+
+class InventingSummaryWriter:
+    def draft(self, payload, passages):
+        return ReportDraft(
+            summary="Fissure et armatures apparentes en zone haute.",
+            defects=[],
+            recommendations=[],
+            uncertainty="u",
+        )
+
+
+def test_summary_citing_undetected_defect_is_replaced(fake_predictor, fake_retriever):
+    report = ReportService(fake_retriever, InventingSummaryWriter()).build(request_for(fake_predictor))
+    assert "armatures" not in report.summary and "fissure" in report.summary
+    assert any("Résumé remplacé" in n for n in report.guardrail_notes)
+
+
+def test_mentioned_defects_ignores_negations():
+    assert mentioned_defects("Fissure diagonale, aucune efflorescence ni trace de rouille.") == {"crack"}
+    assert mentioned_defects("Pas d'éclatement visible ; armatures à nu au droit de la fissure.") == {
+        "crack",
+        "exposed_bars",
+    }
+
+
+def test_low_score_passages_are_dropped():
+    class ScoredRetriever:
+        def search(self, query, k):
+            return [
+                RetrievedChunk(chunk_id="a#0", title="A", text="pertinent", score=0.7),
+                RetrievedChunk(chunk_id="b#0", title="B", text="hors sujet", score=0.2),
+            ]
+
+    assert [p.chunk_id for p in gather_passages(ScoredRetriever(), ["crack"], 3, min_score=0.4)] == ["a#0"]

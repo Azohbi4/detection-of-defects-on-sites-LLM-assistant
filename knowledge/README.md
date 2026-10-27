@@ -3,6 +3,13 @@
 Ce dossier contient les documents **publics** indexés dans Qdrant, ainsi que `sources.yaml` qui les
 décrit. Chaque recommandation du rapport doit citer l'un de ces passages.
 
+## État actuel
+
+Les deux fichiers présents (`fhwa_birm_concrete_defects.md`, `cerema_pathologies_beton_iqoa.md`) sont des
+**synthèses rédigées pour la démonstration**, pas des extraits des guides cités. Leurs valeurs (ouvertures de
+fissure, pertes de section, normes) doivent être vérifiées dans les documents originaux. L'étape suivante est de
+les remplacer par des extraits officiels dont la licence a été confirmée.
+
 ## Ajouter un document
 
 1. Vérifie que la licence autorise la réutilisation (domaine public, licence ouverte, ou usage
