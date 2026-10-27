@@ -200,7 +200,8 @@ Un contrôle de bout en bout contre la vraie API Claude est disponible à part (
 ### Déploiement Google Cloud Platform (GCP)
 
 Voir [docs/deploy_gcp.md](docs/deploy_gcp.md) : Google Artifact Registry + Google Cloud Run (serverless),
-secrets gérés dans Google Secret Manager, CI/CD GitHub Actions.
+deux services (API et interface Streamlit, image légère `Dockerfile.ui`), secrets gérés dans Google
+Secret Manager, CI/CD GitHub Actions.
 
 ## Limites
 
