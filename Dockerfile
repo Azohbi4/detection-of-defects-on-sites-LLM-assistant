@@ -18,18 +18,20 @@ COPY pyproject.toml README.md ./
 COPY src ./src
 RUN pip install ".[api,llm]"
 
-COPY models ./models
+COPY models/model.pt ./models/model.pt
 COPY knowledge ./knowledge
 
 ENV CHANTIER_MODEL_PATH=/app/models/model.pt \
     CHANTIER_QDRANT_PATH=/app/qdrant_storage
 
+# Utilisateur non root, propriétaire de /app seulement (pas de chown -R : il recopierait chaque fichier
+# dans une nouvelle couche et doublerait la taille de l'image).
+RUN useradd --create-home --uid 1000 app && chown app /app
+USER app
+
 # Base RAG indexée dans l'image (Qdrant embarqué) : le modèle d'embedding est téléchargé une fois ici,
 # puis réutilisé au démarrage sans accès réseau. CHANTIER_QDRANT_URL, s'il est défini, reste prioritaire.
 RUN python -m chantier_defects.llm.rag ingest knowledge/
-
-RUN useradd --create-home --uid 1000 app && chown -R app /app
-USER app
 
 EXPOSE 8000
 

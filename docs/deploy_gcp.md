@@ -5,7 +5,7 @@ Une voie de déploiement moderne, serverless et économique : **Google Cloud Run
 ## 1. Initialisation et ressources GCP (une fois)
 
 ```bash
-PROJECT_ID="chantier-defects-$(gcloud config get-value project 2>/dev/null || echo $RANDOM)"
+PROJECT_ID="<id-du-projet>"            # identifiant du projet GCP : gcloud projects list
 REGION="europe-west9"                     # Paris (ou europe-west1 : Belgique)
 REPO="chantier-images"
 SERVICE="api-chantier"
