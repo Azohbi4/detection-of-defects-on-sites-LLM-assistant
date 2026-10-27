@@ -46,6 +46,10 @@ gcloud builds submit --tag $IMAGE .     # utilise le Dockerfile à la racine
 
 ## 3. Gestion des Secrets (Secret Manager)
 
+> La démo publique est déployée **sans** cette étape ni l'option `--set-secrets` : une API ouverte à tous
+> consommerait le crédit Anthropic du propriétaire. Sans clé, le rapport est produit par le gabarit
+> déterministe. À réserver à un déploiement à accès restreint (`--no-allow-unauthenticated`).
+
 Les clés d'API (comme `ANTHROPIC_API_KEY`) ne sont **jamais** écrites dans le code ou l'image Docker :
 
 ```bash

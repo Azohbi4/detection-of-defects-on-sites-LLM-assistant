@@ -3,6 +3,12 @@
 Repérer automatiquement les défauts visibles sur des images de béton (fissures, éclatements, armatures
 apparentes, corrosion, efflorescences) et produire un **rapport d'inspection clair, sourcé et prudent**.
 
+**Démo en ligne** (Google Cloud Run) : https://api-chantier-311688925798.europe-west9.run.app/docs
+L'API interactive permet d'envoyer une photo (`/analyze`) puis de générer le rapport (`/report`).
+La démo publique tourne sans clé Claude : le rapport y est produit par le gabarit déterministe, avec
+les sources de la base documentaire. La génération par Claude se lance en local (voir Lancement).
+Premier appel après une période d'inactivité : quelques secondes de démarrage à froid.
+
 ## Besoin métier
 
 Un conducteur de travaux ou un inspecteur d'ouvrages veut, à partir de photos prises sur site :
