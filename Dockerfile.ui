@@ -7,6 +7,7 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     PIP_DISABLE_PIP_VERSION_CHECK=1 \
     STREAMLIT_SERVER_HEADLESS=true \
     STREAMLIT_BROWSER_GATHER_USAGE_STATS=false \
+    STREAMLIT_SERVER_MAX_UPLOAD_SIZE=15 \
     PORT=8501
 
 WORKDIR /app
@@ -14,6 +15,9 @@ WORKDIR /app
 # Seules les dépendances importées par l'interface (extra `ui` + Pillow) : le paquet complet tirerait
 # scikit-learn, scipy et scikit-image, inutiles ici.
 RUN pip install "streamlit==1.66.1" "httpx==0.28.1" "pillow==12.3.0"
+
+# Police avec accents pour les étiquettes des images annotées (l'image slim n'en a aucune).
+RUN apt-get update && apt-get install -y --no-install-recommends fonts-dejavu-core && rm -rf /var/lib/apt/lists/*
 
 COPY src/chantier_defects/ui/streamlit_app.py ./streamlit_app.py
 
