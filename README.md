@@ -120,6 +120,18 @@ Ce compromis est voulu : les seuils calés sur le F2 favorisent le rappel (92.3 
 sur « au moins un défaut », soit 6 patches défectueux non signalés sur 676). Cela ne garantit pas
 l'absence d'oubli sur site, d'où la validation humaine obligatoire.
 
+**Recherche documentaire (RAG)** : `python -m chantier_defects.eval.rag knowledge/` compare les passages
+remontés à des passages étiquetés à la main (`knowledge/eval_queries.yaml`, 15 requêtes FR/EN, top-3).
+
+| Modèle d'embedding | hit@3 | precision@3 | MRR@3 |
+|---|---|---|---|
+| paraphrase-multilingual-MiniLM-L12-v2 | 0.87 | 0.58 | 0.76 |
+| embeddinggemma-300m (déployé) | 1.00 | 0.87 | 1.00 |
+
+Le seuil de similarité (0,50) est placé entre le meilleur score obtenu par 8 requêtes hors sujet (0,42) et
+le plus faible passage pertinent des requêtes de production (0,58). Détails dans
+[docs/decisions.md](docs/decisions.md) §6.
+
 ## Lancement
 
 ### 1. Environnement (Python 3.11 ou 3.12)
@@ -198,6 +210,7 @@ secrets gérés dans Google Secret Manager, CI/CD GitHub Actions.
   La base contient un extrait officiel du FHWA (SNBI 2022, grille de gravité des défauts du béton) et deux
   **synthèses non vérifiées**, à remplacer par des extraits officiels (voir [knowledge/README.md](knowledge/README.md)).
   Les seuils du SNBI sont donnés en pouces et sont propres à la pratique américaine.
+- L'évaluation de la recherche documentaire repose sur un petit jeu de requêtes étiqueté par l'auteur.
 
 ## Mentions
 

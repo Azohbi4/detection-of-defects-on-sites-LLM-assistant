@@ -1,0 +1,85 @@
+# Jeu d'évaluation du RAG (python -m chantier_defects.eval.rag knowledge/). Non indexé.
+# relevant : passages (fichier#n° de morceau, découpage de rag.chunk_text) qui traitent vraiment du défaut,
+# étiquetés à la main. Un morceau qui ne contient qu'un titre de section en fin de texte n'est pas compté.
+# À ré-étiqueter si l'on modifie un document de knowledge/ ou le découpage : l'évaluation refuse les
+# identifiants qui n'existent plus.
+
+defects:
+  crack:
+    queries:
+      - "fissures dans un voile en béton armé"
+      - "concrete crack width severity"
+    relevant:
+      - fhwa_birm_concrete_defects.md#1
+      - fhwa_birm_concrete_defects.md#2
+      - fhwa_birm_concrete_defects.md#3
+      - cerema_pathologies_beton_iqoa.md#1
+      - cerema_pathologies_beton_iqoa.md#2
+      - cerema_pathologies_beton_iqoa.md#3
+      - snbi_concrete_extract.txt#9
+      - snbi_concrete_extract.txt#10
+      - snbi_concrete_extract.txt#11
+  spallation:
+    queries:
+      - "béton éclaté qui se détache"
+      - "concrete spalling delamination"
+    relevant:
+      - fhwa_birm_concrete_defects.md#4
+      - fhwa_birm_concrete_defects.md#5
+      - fhwa_birm_concrete_defects.md#6
+      - cerema_pathologies_beton_iqoa.md#4
+      - cerema_pathologies_beton_iqoa.md#5
+      - cerema_pathologies_beton_iqoa.md#6
+      - snbi_concrete_extract.txt#6
+      - snbi_concrete_extract.txt#7
+      - snbi_concrete_extract.txt#8
+  efflorescence:
+    queries:
+      - "dépôt blanc sur le béton"
+      - "white deposits leaching on concrete"
+    relevant:
+      - fhwa_birm_concrete_defects.md#11
+      - fhwa_birm_concrete_defects.md#12
+      - cerema_pathologies_beton_iqoa.md#11
+      - cerema_pathologies_beton_iqoa.md#12
+      - cerema_pathologies_beton_iqoa.md#13
+      - snbi_concrete_extract.txt#0
+      - snbi_concrete_extract.txt#1
+      - snbi_concrete_extract.txt#11
+  exposed_bars:
+    queries:
+      - "acier à nu visible dans le béton"
+      - "exposed rebar section loss"
+    relevant:
+      - fhwa_birm_concrete_defects.md#7
+      - fhwa_birm_concrete_defects.md#8
+      - cerema_pathologies_beton_iqoa.md#6
+      - cerema_pathologies_beton_iqoa.md#7
+      - cerema_pathologies_beton_iqoa.md#8
+      - snbi_concrete_extract.txt#6
+      - snbi_concrete_extract.txt#7
+      - snbi_concrete_extract.txt#8
+      - snbi_concrete_extract.txt#9
+  corrosion_stain:
+    queries:
+      - "coulures de rouille sur le béton"
+      - "rust staining on concrete"
+    relevant:
+      - fhwa_birm_concrete_defects.md#9
+      - fhwa_birm_concrete_defects.md#10
+      - fhwa_birm_concrete_defects.md#11
+      - cerema_pathologies_beton_iqoa.md#9
+      - cerema_pathologies_beton_iqoa.md#10
+      - cerema_pathologies_beton_iqoa.md#11
+      - snbi_concrete_extract.txt#11
+
+# Requêtes hors sujet : aucun passage de la base ne devrait les servir. Elles mesurent ce que laisse passer le seuil.
+off_topic:
+  - "étanchéité toiture terrasse membrane bitumineuse"
+  - "menuiserie bois pourriture fenêtre"
+  - "installation électrique tableau disjoncteur"
+  - "carrelage décollé salle de bain"
+  - "fuite plomberie canalisation cuivre"
+  - "peinture façade écaillée ravalement"
+  - "enrobé chaussée nid-de-poule orniérage"
+  - "charpente métallique boulons desserrés"
