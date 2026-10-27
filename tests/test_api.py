@@ -22,6 +22,11 @@ def test_health(client):
     assert body["status"] == "ok" and body["model_loaded"] and body["classes"] == ["crack", "spallation"]
 
 
+def test_root_redirects_to_docs(client):
+    response = client.get("/", follow_redirects=False)
+    assert response.status_code == 307 and response.headers["location"] == "/docs"
+
+
 def test_analyze_then_report(client):
     files = [
         ("files", ("fissure.png", png_bytes(concrete_image()), "image/png")),

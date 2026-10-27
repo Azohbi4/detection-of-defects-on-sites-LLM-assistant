@@ -17,6 +17,7 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 from fastapi import FastAPI, File, HTTPException, Request, UploadFile
+from fastapi.responses import RedirectResponse
 from PIL import Image, UnidentifiedImageError
 
 from ..config import Settings, get_settings
@@ -76,6 +77,10 @@ def create_app(
     app = FastAPI(title="Détection de défauts sur chantier", version="0.1.0", lifespan=lifespan)
     app.state.predictor = predictor
     app.state.report_service = report_service
+
+    @app.get("/", include_in_schema=False)
+    def root() -> RedirectResponse:
+        return RedirectResponse("/docs")  # l'URL de base mène à la documentation interactive
 
     @app.get("/health")
     def health(request: Request) -> dict:
